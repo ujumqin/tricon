@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High-Level Design: The Iconic Journey Simulation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --tricon-navy: #002D5C;
+            --tricon-teal: #00A3AD;
+            --bg-light: #F4F7F9;
+            --text-dark: #333;
+            --white: #ffffff;
+            --border: #e1e4e8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 850px;
+            background: var(--white);
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .candidate-info {
+            text-align: right;
+            font-size: 12px;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        header {
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: var(--tricon-navy);
+            font-size: 32px;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            color: var(--tricon-teal);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: var(--tricon-navy);
+            font-size: 20px;
+            border-left: 4px solid var(--tricon-teal);
+            padding-left: 15px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 16px;
+            color: var(--tricon-navy);
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 15px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            font-size: 15px;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        strong {
+            color: var(--tricon-navy);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: var(--tricon-navy);
+            color: var(--white);
+            text-align: left;
+            padding: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 13px;
+            color: #999;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 25px; }
+            h1 { font-size: 24px; }
+            th, td { padding: 8px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="candidate-info">Sine Gov — Learning Architect Candidate — Design Portfolio</div>
+
+    <header>
+        <h1>High-Level Design: The Iconic Journey</h1>
+        <div class="subtitle">Instructional Strategy & Implementation Roadmap</div>
+    </header>
+
+    <section>
+        <h2>1. Executive Summary & Business Case</h2>
+        <p><strong>The Goal:</strong> Transition the culture from a property-first mindset to a people-first mindset, creating high-equity residents empowered to reach the 5-year Tricon Vantage milestone.</p>
+        <p><strong>The Opportunity:</strong> By evolving from "Standard Service" to "Iconic Moments," Tricon can significantly increase Resident Lifetime Value (LTV) and reduce avoidable churn through strategic, empathy-driven engagement.</p>
+    </section>
+
+    <section>
+        <h2>2. Target Audience & Performance Gap</h2>
+        <p><strong>Primary Audience:</strong> Resident Service Leads, Property Managers, and Field Maintenance Technicians.</p>
+        <p><strong>Desired State:</strong> Staff utilize discretionary empowerment to solve the resident's human problem (stress, time, career) alongside the physical problem (repairs), navigating complex interpersonal dynamics with ease.</p>
+    </section>
+
+    <section>
+        <h2>3. Learning Objectives (Bloom’s Taxonomy)</h2>
+        <ul>
+            <li><strong>Identify (Cognitive):</strong> Recognize stress triggers in resident interactions, such as career milestones, the fatigue of moving, or family growth.</li>
+            <li><strong>Evaluate (Analyze):</strong> Differentiate between a standard "Compliance-Based" response and a proactive "Iconic Moment" response.</li>
+            <li><strong>Apply (Synthesis):</strong> Utilize the Tricon Vantage ecosystem, including Transfer Policies and Down Payment Grants, as a primary retention tool.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>4. Instructional Strategy: The "Mirror of Action" Model</h2>
+        <p>This simulation utilizes <strong>Conditional Branching Narrative</strong> logic. Unlike static assessments, this model uses a <strong>Persistence Engine</strong> to demonstrate the long-term impact of service decisions.</p>
+        <ul>
+            <li><strong>Relationship Equity Meter:</strong> A visual data point that tracks the cumulative impact of learner choices across the resident lifecycle.</li>
+            <li><strong>Adaptive Narrative:</strong> The resident's dialogue and receptiveness change based on previous interactions, reinforcing the concept of <strong>"Service Debt"</strong>—the principle that poor initial service makes future retention exponentially harder.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>5. Measurement & Analytics Strategy</h2>
+        <p>To prove the ROI of this training, data will be tracked across the Kirkpatrick Model of Evaluation:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Level</th>
+                    <th>Metric</th>
+                    <th>Data Source</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Level 1: Reaction</strong></td>
+                    <td>Learner engagement & "Path Discovery" (Measuring replays to achieve 100% equity).</td>
+                    <td>LMS SCORM Completion Data</td>
+                </tr>
+                <tr>
+                    <td><strong>Level 2: Learning</strong></td>
+                    <td>Difference between initial Relationship Equity score and final simulation score.</td>
+                    <td>Simulation Analytics Dashboard</td>
+                </tr>
+                <tr>
+                    <td><strong>Level 3: Behavior</strong></td>
+                    <td>Qualitative change in "Resident Sentiment" scores following maintenance and service visits.</td>
+                    <td>Internal CRM / Resident Feedback</td>
+                </tr>
+                <tr>
+                    <td><strong>Level 4: Results</strong></td>
+                    <td>Increased Retention Rate for residents reaching the 36-month and 60-month milestones.</td>
+                    <td>Internal CRM / Resident Data</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <div class="footer">
+        &copy; 2026 Sine Gov — Professional Learning Architect Portfolio. All rights reserved.
+    </div>
+</div>
+
+</body>
+</html>

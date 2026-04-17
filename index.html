@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sine Gov | Learning Architect Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --tricon-navy: #002D5C;
+            --tricon-teal: #00A3AD;
+            --bg-light: #F4F7F9;
+            --text-dark: #333;
+            --white: #ffffff;
+            --border: #e1e4e8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            width: 100%;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--tricon-navy);
+            margin: 0;
+            letter-spacing: -1px;
+        }
+
+        .title-sub {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--tricon-teal);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
+
+        .company-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--tricon-navy);
+            margin-top: 15px;
+        }
+
+        .logo-container {
+            margin-top: 20px;
+            max-width: 250px;
+        }
+
+        .intro-container {
+            max-width: 800px;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .intro-text {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            width: 100%;
+            padding: 20px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .card-image-link {
+            display: block;
+            height: 200px;
+            background: var(--tricon-navy);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 20px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .card-image-link.simulation { background: var(--tricon-teal); }
+        .card-image-link.elearning { background: #004b8d; }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--tricon-navy);
+            margin: 0 0 10px;
+            line-height: 1.3;
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .hld-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--tricon-teal);
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .hld-link:hover {
+            border-color: var(--tricon-teal);
+        }
+
+        footer {
+            padding: 40px;
+            font-size: 13px;
+            color: #999;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 32px; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Sine Gov</h1>
+    <div class="title-sub">Learning Architect Candidate</div>
+    <div class="company-name">Tricon Residential</div>
+</header>
+
+<div class="intro-container">
+    <p class="intro-text">
+        Hello! I am Sine Gov. Thank you for the opportunity to showcase my work to the team. I have developed three distinct training modules, each accompanied by a High-Level Design (HLD) document that details my strategic approach and instructional methodology. I hope you find these samples insightful, and I look forward to our next steps together.
+    </p>
+</div>
+
+<div class="portfolio-grid">
+    
+    <div class="card">
+        <div class="video-container">
+            <div class="video-container">
+    <iframe 
+        src="https://www.youtube.com/embed/nttM0o5J1_8?rel=0&modestbranding=1" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+    </iframe>
+</div>
+        </div>
+        <div class="card-content">
+            <div>
+                <h2 class="card-title">Prioritization When Everything Is Urgent</h2>
+                <div class="card-subtitle">
+                    Virtual Instructor Led Sample<br>
+                    Duration: 9 minutes 22 seconds
+                </div>
+            </div>
+            <a href="hld-prioritization.html" class="hld-link">View Design Document (HLD)</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <a href="tricon-hlp-iconicjourney.html" class="card-image-link simulation">
+            Launch Simulation
+        </a>
+        <div class="card-content">
+            <div>
+                <h2 class="card-title">The Standards of Excellence</h2>
+                <div class="card-subtitle">
+                    Simulation Sample<br>
+                    Duration: 5 minutes
+                </div>
+            </div>
+            <a href="hld.html" class="hld-link">View Design Document (HLD)</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <a href="tricon-feedback.html" class="card-image-link elearning">
+            Launch eLearning
+        </a>
+        <div class="card-content">
+            <div>
+                <h2 class="card-title">Providing Excellent Feedback</h2>
+                <div class="card-subtitle">
+                    eLearning Sample<br>
+                    Duration: 3 minutes
+                </div>
+            </div>
+            <a href="hld-feedback.html" class="hld-link">View Design Document (HLD)</a>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    &copy; 2026 Sine Gov — Learning Architect Portfolio
+</footer>
+
+</body>
+</html>

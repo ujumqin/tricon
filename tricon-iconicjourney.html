@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tricon Residential: The Resident Journey Simulation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --tricon-navy: #002D5C;
+            --tricon-teal: #00A3AD;
+            --bg-light: #F4F7F9;
+            --text-dark: #333;
+            --white: #ffffff;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --watermark: #888;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        #app {
+            width: 100%;
+            max-width: 720px; /* Slimmer UI */
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 20px; 
+            position: relative;
+        }
+
+        .watermark-top {
+            font-size: 10px;
+            color: var(--watermark);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        header {
+            border-bottom: 1px solid var(--bg-light);
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-text { font-weight: 800; font-size: 18px; color: var(--tricon-navy); letter-spacing: -0.5px; }
+
+        .equity-container { text-align: right; min-width: 160px; }
+        .equity-label { font-size: 9px; text-transform: uppercase; font-weight: 700; color: var(--tricon-navy); margin-bottom: 3px; }
+
+        .equity-bar-bg {
+            width: 100%; height: 10px; background: #e0e0e0; border-radius: 5px;
+            overflow: hidden; position: relative; display: flex;
+        }
+
+        .equity-bar-bg::before, .equity-bar-bg::after {
+            content: ""; position: absolute; top: 0; width: 1px; height: 100%;
+            background: rgba(255, 255, 255, 0.4); z-index: 2;
+        }
+        .equity-bar-bg::before { left: 33.33%; }
+        .equity-bar-bg::after { left: 66.66%; }
+
+        #equity-bar-fill {
+            height: 100%; width: 0%; background: var(--tricon-teal);
+            transition: width 0.8s ease-out, background 0.4s; position: relative; z-index: 1;
+        }
+
+        .scenario-stage { font-weight: 700; color: var(--tricon-teal); font-size: 11px; margin-bottom: 4px; text-transform: uppercase; }
+        h2 { font-size: 22px; color: var(--tricon-navy); margin-top: 0; margin-bottom: 10px; }
+        p.description { line-height: 1.4; font-size: 14px; margin-bottom: 20px; color: #444; }
+
+        .choices { display: flex; flex-direction: column; gap: 8px; }
+        .choice-btn {
+            background: var(--white); border: 1px solid #ddd; padding: 12px 15px; border-radius: 6px;
+            cursor: pointer; text-align: left; font-size: 13.5px; transition: all 0.2s;
+            font-weight: 500; color: var(--text-dark); line-height: 1.3;
+        }
+        .choice-btn:hover { border-color: var(--tricon-teal); background-color: #f6feff; transform: translateX(3px); }
+
+        #feedback-area {
+            display: none; margin-top: 20px; padding: 15px; border-radius: 6px;
+            animation: slideIn 0.4s ease-out;
+        }
+        .feedback-title { font-weight: 700; margin-bottom: 6px; display: block; font-size: 16px; }
+
+        .next-btn {
+            margin-top: 12px; background: var(--tricon-navy); color: white; border: none;
+            padding: 8px 25px; border-radius: 4px; font-weight: 700; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 1px; font-size: 11px;
+        }
+
+        .policy-links { margin-top: 18px; text-align: left; background: #fdf8e4; padding: 12px; border-radius: 6px; border: 1px solid #f1e0a2; font-size: 13px; }
+        .policy-links a { color: var(--tricon-navy); font-weight: 600; display: block; margin-bottom: 4px; text-decoration: none; }
+
+        .candidate-sig { margin-top: 20px; padding-top: 12px; border-top: 1px solid #eee; font-size: 11px; color: #777; font-weight: 600; }
+
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100; }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .final-scorecard { text-align: center; }
+        .metric-circle {
+            width: 90px; height: 90px; border-radius: 50%; border: 6px solid var(--tricon-teal);
+            display: flex; justify-content: center; align-items: center; margin: 15px auto;
+            font-size: 24px; font-weight: 800; color: var(--tricon-navy); background: #f0fbfc;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<div id="app">
+    <div class="watermark-top">Sine Gov — Learning Architect Candidate — Simulation Sample</div>
+    <header>
+        <div class="logo-text">TRICON <span style="color:var(--tricon-teal)">RESIDENTIAL</span></div>
+        <div class="equity-container">
+            <div class="equity-label">Relationship Equity</div>
+            <div class="equity-bar-bg"><div id="equity-bar-fill"></div></div>
+        </div>
+    </header>
+    <div id="game-content"></div>
+    <div id="feedback-area">
+        <span id="feedback-title" class="feedback-title"></span>
+        <p id="feedback-text" style="font-size: 13.5px; line-height: 1.4;"></p>
+        <button id="next-btn" class="next-btn">Continue Journey</button>
+    </div>
+</div>
+
+<script>
+    const state = { 
+        equity: 0, 
+        currentStage: -1,
+        history: [] // Tracks "Exceptional", "Positive", "Negative"
+    };
+
+    const scenarios = [
+        {
+            stage: "Stage 1: The Move-In",
+            title: "A Frantic First Day",
+            getDescription: () => "It’s 95 degrees outside, and Sarah is exhausted. She’s finally at the door of her new home, but the AC is dead. Her toddler is in tears, and her car is full of groceries that are starting to melt. She calls you, sounding like she's at her breaking point.",
+            choices: [
+                { text: "Log a priority maintenance request for a vendor to visit first thing Monday morning and apologize for the inconvenience.", equityChange: -15, type: "Negative", feedback: "Sarah feels like a number. Her first weekend is defined by physical discomfort and ruined groceries, creating an immediate trust deficit." },
+                { text: "Validate her stress and immediately dispatch a tech to get the cooling restored, while providing a 'Survival Kit' of cold waters, snacks, and a pizza gift card.", equityChange: 35, type: "Exceptional", feedback: "Incredible! You didn't just fix the AC; you solved her family's hunger and heat exhaustion. Sarah is now a brand advocate." },
+                { text: "Dispatch an emergency technician right away to ensure the home is livable by tonight.", equityChange: 15, type: "Positive", feedback: "Good triage. The home is now livable, but the emotional weight of her difficult move-in day remains unaddressed." }
+            ]
+        },
+        {
+            stage: "Stage 2: 18 Months In",
+            title: "The Zoom-Call Disaster",
+            getDescription: () => {
+                if (state.history[0] === "Negative") {
+                    return "Sarah is still wary after that rocky move-in experience last year. Today, things get worse: she has a career-defining presentation in 20 minutes, and the kitchen sink is leaking fast. The vendor is stuck. She sounds defensive: 'Is this going to be like last time?'";
+                }
+                return "Sarah’s hitting her stride at work, but today is a nightmare. She has a high-stakes presentation in 20 minutes, and her kitchen sink has started a steady 'drip-drip-drip.' The vendor is stuck across town. She calls you, sounding frantic.";
+            },
+            choices: [
+                { text: "Send a Field Tech immediately to shut off the water and dry the area + provide a $25 meal credit so she doesn't have to worry about the kitchen tonight.", equityChange: 35, type: "Exceptional", feedback: "Masterful. You removed the distraction so she could focus on her career, and you anticipated her dinner stress before she even realized it." },
+                { text: "Inform her that since the leak isn't a major flood, it doesn't qualify for emergency dispatch. Confirm her 8 AM appointment for tomorrow.", equityChange: -15, type: "Negative", feedback: "Her anxiety peaks. By adhering strictly to policy, you've forced her to manage a property issue during her most critical work moment." },
+                { text: "Coordinate with the internal team to immediately shut off the valve and dry the cabinetry, ensuring she can finish her meeting in peace.", equityChange: 20, type: "Positive", feedback: "Strong support. You removed the risk of damage and the distracting noise, supporting her professional well-being." }
+            ]
+        },
+        {
+            stage: "Stage 3: The Crossroads",
+            title: "Bridging the Gap",
+            getDescription: () => {
+                if (state.history[0] === "Negative" && state.history[1] === "Negative") {
+                    return "It's been 3 years, and Sarah has reached her limit. After years of feeling like just a tenant, she's ready to go. 'We need more space anyway,' she says during her move-out call. She seems glad to be leaving and isn't interested in small talk.";
+                }
+                if (state.history[0] === "Negative" || state.history[1] === "Negative") {
+                    return "It's been 3 years. Sarah calls to give notice. 'We need more space, and honestly, the service has been hit or miss,' she says. She's looking at homes to buy, but she hasn't looked at Tricon's 4-bedroom options yet.";
+                }
+                return "It's been 3 years, and Sarah’s little one isn't so little anymore. She calls you with a heavy heart: 'We love it here, but we're just on top of each other. I think it's time for us to find a house of our own.'";
+            },
+            choices: [
+                { text: "Acknowledge her plans, wish her luck with the house hunt, and provide the move-out inspection and security deposit guidelines.", equityChange: -20, type: "Negative", feedback: "Operational Failure. You lost a high-equity resident, and Sarah lost significant financial progress toward homeownership." },
+                { text: "Inform her that she's only 24 months away from a $5,000 grant if she reaches the 5-year mark, and ask if there's any way she can stay.", equityChange: 5, type: "Neutral", feedback: "Informative but unhelpful. Without a solution for her lack of space, she will likely proceed with vacating despite the grant loss." },
+                { text: "Proactively suggest a lease transfer to a larger 4-bedroom Tricon home nearby, allowing her to keep her 3-year seniority for the $5k grant.", equityChange: 30, type: "Exceptional", feedback: "" } // Feedback and Equity will be dynamic
+            ]
+        }
+    ];
+
+    window.renderStage = function() {
+        const gameContent = document.getElementById('game-content');
+        document.getElementById('feedback-area').style.display = 'none';
+
+        if (state.currentStage === -1) {
+            gameContent.innerHTML = `
+                <div class="scenario-stage">Orientation</div>
+                <h2>The Standards of Excellence</h2>
+                <p class="description">Welcome! This simulation helps team members internalize Tricon's Standards of Excellence and the creation of Iconic Moments. <br><br> Follow Sarah, a single mother embarking on a fresh start. Your goal is to build <strong>Relationship Equity</strong> through our "Out-Caring" philosophy.</p>
+                <button class="next-btn" onclick="startSim()">Begin Simulation</button>
+                <div class="candidate-sig">Sine Gov — Learning Architect Candidate</div>
+            `;
+            return;
+        }
+
+        if (state.currentStage >= scenarios.length) { renderFinalScore(); return; }
+
+        const scene = scenarios[state.currentStage];
+        gameContent.innerHTML = `
+            <div class="scenario-stage">${scene.stage}</div>
+            <h2>${scene.title}</h2>
+            <p class="description">${scene.getDescription()}</p>
+            <div class="choices" id="choices-container">
+                ${scene.choices.map((c, i) => `<button class="choice-btn" onclick="handleChoice(${i})">${c.text}</button>`).join('')}
+            </div>
+        `;
+    }
+
+    window.startSim = function() { state.currentStage = 0; renderStage(); }
+
+    window.handleChoice = function(index) {
+        const scene = scenarios[state.currentStage];
+        let choice = scene.choices[index];
+        
+        // DYNAMIC LOGIC FOR STAGE 3, OPTION 3 (The Best Choice)
+        if (state.currentStage === 2 && index === 2) {
+            const history = state.history;
+            const negatives = history.filter(h => h === "Negative").length;
+            const exceptionals = history.filter(h => h === "Exceptional").length;
+
+            if (negatives === 2) {
+                choice.feedback = "While the transfer offer is technically helpful, Sarah's trust is already gone. She appreciates the info but says, 'I think I just need a fresh start with a different company.' She continues with her move-out.";
+                choice.equityChange = 5;
+                choice.type = "Neutral";
+            } else if (exceptionals === 2) {
+                choice.feedback = "Strategic Excellence. Because you've built so much 'Relationship Equity' over the years, Sarah doesn't even look elsewhere. She signs the transfer immediately and stays in the Tricon family.";
+                choice.equityChange = 40;
+                choice.type = "Exceptional";
+            } else {
+                choice.feedback = "Sarah is surprised you're willing to work with her. She's open to the transfer, but wants to see the house first. You've kept her in the family, but the relationship still needs nurturing.";
+                choice.equityChange = 20;
+                choice.type = "Positive";
+            }
+        }
+
+        state.equity = Math.min(100, Math.max(0, state.equity + choice.equityChange));
+        state.history.push(choice.type);
+
+        const feedbackArea = document.getElementById('feedback-area');
+        const feedbackTitle = document.getElementById('feedback-title');
+        
+        feedbackArea.style.display = 'block';
+        feedbackArea.style.backgroundColor = choice.type === "Exceptional" ? "#e6fcf5" : choice.type === "Negative" ? "#fff5f5" : "#f8f9fa";
+        feedbackTitle.style.color = choice.type === "Exceptional" ? "#28a745" : choice.type === "Negative" ? "#dc3545" : "#002D5C";
+        
+        // Final Stage Feedback Title override
+        if (state.currentStage === 2 && index === 2) {
+            feedbackTitle.innerText = choice.type === "Exceptional" ? "Perfect Alignment Achieved!" : "Relationship Triage";
+        } else {
+            feedbackTitle.innerText = choice.type === "Exceptional" ? "Iconic Moment Achieved!" : "Response Logged";
+        }
+
+        document.getElementById('feedback-text').innerText = choice.feedback;
+        document.getElementById('choices-container').style.pointerEvents = 'none';
+        updateEquityBar();
+    };
+
+    function updateEquityBar() {
+        const fill = document.getElementById('equity-bar-fill');
+        if (fill) {
+            fill.style.width = state.equity + '%';
+            fill.style.background = state.equity >= 66 ? '#00A3AD' : state.equity >= 33 ? '#ffc107' : '#dc3545';
+        }
+    }
+
+    document.getElementById('next-btn').addEventListener('click', () => { state.currentStage++; renderStage(); });
+
+    function renderFinalScore() {
+        const gameContent = document.getElementById('game-content');
+        const isPerfect = state.equity >= 100;
+        let rank = state.equity >= 85 ? "Culture Champion" : state.equity >= 60 ? "Service Professional" : "Transactional Associate";
+
+        gameContent.innerHTML = `
+            <div class="final-scorecard">
+                <h2>Journey Complete</h2>
+                <div class="metric-circle">${state.equity}%</div>
+                <h3 style="color:#00A3AD">Rank: ${rank}</h3>
+                ${!isPerfect ? `
+                    <div class="policy-links">
+                        <strong>Growth Opportunity:</strong> Review these resources to master the Tricon way:
+                        <a href="https://triconhomes.com/bill-of-rights/" target="_blank">• Tricon Resident Bill of Rights</a>
+                        <a href="https://triconhomes.com/tricon-vantage-programs/" target="_blank">• Tricon Vantage Program Details</a>
+                        <a href="https://triconhomes.com/about-us/" target="_blank">• Our "Out-Caring" Philosophy</a>
+                    </div>
+                ` : `<p>Exceptional work! You've perfectly modeled the "Out-Caring" philosophy.</p>`}
+                <button class="next-btn" onclick="location.reload()">Restart Journey</button>
+                <div class="candidate-sig">Project by Sine Gov — Learning Architect Candidate</div>
+            </div>
+        `;
+        if (isPerfect) startConfetti();
+    }
+
+    function startConfetti() {
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        let particles = Array.from({ length: 150 }, () => ({
+            x: Math.random() * canvas.width, y: Math.random() * canvas.height - canvas.height,
+            size: Math.random() * 8 + 4, color: ["#00A3AD", "#002D5C", "#C5A96E", "#28a745"][Math.floor(Math.random() * 4)],
+            vel: Math.random() * 3 + 2, angle: Math.random() * 360
+        }));
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                ctx.fillStyle = p.color; ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+                p.y += p.vel; p.x += Math.sin(p.angle) * 1;
+                if (p.y > canvas.height) p.y = -10;
+            });
+            requestAnimationFrame(draw);
+        }
+        draw();
+    }
+
+    document.addEventListener('DOMContentLoaded', renderStage);
+</script>
+</body>
+</html>
