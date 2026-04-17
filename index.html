@@ -60,7 +60,10 @@
 
         .logo-container {
             margin-top: 20px;
+            width: 100%;
             max-width: 250px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .intro-container {
@@ -106,6 +109,7 @@
             padding-bottom: 56.25%; /* 16:9 ratio */
             height: 0;
             overflow: hidden;
+            background: #000;
         }
 
         .video-container iframe {
@@ -129,8 +133,10 @@
             font-size: 20px;
             text-align: center;
             padding: 20px;
+            transition: opacity 0.2s;
         }
 
+        .card-image-link:hover { opacity: 0.9; }
         .card-image-link.simulation { background: var(--tricon-teal); }
         .card-image-link.elearning { background: #004b8d; }
 
@@ -193,6 +199,9 @@
     <h1>Sine Gov</h1>
     <div class="title-sub">Learning Architect Candidate</div>
     <div class="company-name">Tricon Residential</div>
+    <div class="logo-container">
+        <img src="https://triconhomes.com/wp-content/themes/tricon/assets/img/logo.svg" alt="Tricon Logo" style="width: 100%;">
+    </div>
 </header>
 
 <div class="intro-container">
@@ -203,10 +212,10 @@
 
 <div class="portfolio-grid">
     
-    <div class="card">
-        <div class="video-container">
-            <iframe src="https://youtu.be/nttMOo5J1_8" frameborder="0" allowfullscreen></iframe>
-        </div>
+   <div class="card">
+        <a href="https://youtu.be/nttMOo5J1_8" target="_blank" rel="noopener noreferrer" class="card-image-link vilt">
+            Watch Presentation (New Tab)
+        </a>
         <div class="card-content">
             <div>
                 <h2 class="card-title">Prioritization When Everything Is Urgent</h2>
@@ -215,13 +224,13 @@
                     Duration: 9 minutes 22 seconds
                 </div>
             </div>
-            <a href="hld-prioritization.html" class="hld-link">View Design Document (HLD)</a>
+            <a href="tricon-hlp-priority.html" target="_blank" rel="noopener noreferrer" class="hld-link">View Design Document (HLD)</a>
         </div>
     </div>
 
     <div class="card">
-        <a href="tricon-iconicjourney.html" class="card-image-link simulation">
-            Launch Simulation
+        <a href="tricon-iconicjourney.html" target="_blank" rel="noopener noreferrer" class="card-image-link simulation">
+            Launch Simulation (New Tab)
         </a>
         <div class="card-content">
             <div>
@@ -231,13 +240,13 @@
                     Duration: 5 minutes
                 </div>
             </div>
-            <a href="tricon-hlp-iconicjourney.html" class="hld-link">View Design Document (HLD)</a>
+            <a href="tricon-hlp-iconicjourney.html" target="_blank" rel="noopener noreferrer" class="hld-link">View Design Document (HLD)</a>
         </div>
     </div>
 
     <div class="card">
-        <a href="tricon-feedback.html" class="card-image-link elearning">
-            Launch eLearning
+        <a href="tricon-feedback.html" target="_blank" rel="noopener noreferrer" class="card-image-link elearning">
+            Launch eLearning (New Tab)
         </a>
         <div class="card-content">
             <div>
@@ -247,7 +256,7 @@
                     Duration: 3 minutes
                 </div>
             </div>
-            <a href="tricon-hlp-feedback.html" class="hld-link">View Design Document (HLD)</a>
+            <a href="tricon-hlp-feedback.html" target="_blank" rel="noopener noreferrer" class="hld-link">View Design Document (HLD)</a>
         </div>
     </div>
 
